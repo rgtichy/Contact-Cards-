@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Load a form to a table</title>
+  <meta></meta>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script>
+  function val_phone(phone) {
+    var d_phone = "";
+    if (phone.length>0) {
+      if (phone.length>=6) {
+        d_phone='('+phone.substring(0,3)+') '+phone.substring(3,6)+'-'+phone.substring(6,phone.length);
+      }
+      else {
+        if (phone.length>=3) {
+        d_phone='('+phone.substring(0,3)+') '+phone.substring(3,phone.length);
+        }
+        else {
+        d_phone="("+phone;
+        }
+      }
+    }
+    return(d_phone);
+  }
+  // function writeRow
+  function writeListEntry(first, last, email, phone, notes) {
+    var name= first+" "+last;
+    var p2 = phone.replace(/[^\w\s]|_/g, "");
+    var d_phone = val_phone(phone);
+    $( 'ul#scraps' ).append("<li notes="+notes+" phone="+p2+"><p class='name'>"+name+"</p><p>"+d_phone+"</p><p>"+email+"</p></li>");
+    writeNote("","","","");
+  };
+  function validateData(first,last,email,phone) {
+    return(true);
+  };
+  function writeNote(first,last,email,phone) {
+    console.log("writeNote entered");
+    var n = first+' '+last;
+    var d_phone = val_phone(phone);
+    $( 'p#name' ).html("<i>"+n+"</i>");
+    $( 'p#phone' ).html("<i>"+d_phone+"</i>");
+    $( 'p#email' ).html("<i>"+email+"</i>");
+  };
+  // Use jQuery to read input and make dynamic content
+  $(document).ready(function(){
+    console.log("jQuery Loaded")
+    $('form').submit(
+    function() {
+        //retrieve(first,last,email,phone);
+        var f = $( ".first" ).val();
+        var l = $( ".last" ).val();
+        var e = $( ".email" ).val();
+        var n = $( ".notes" ).val();
+        var p= $( ".phone" ).val();
+        var p2 = p.replace(/[^\w\s]|_/g, "");
+        if (validateData(f,l,e,p2)) {
+          $("#input input").val("");
+          console.log("Writing to list",f,l,e,p)
+          writeListEntry(f,l,e,p2,n);
+        }
+        else {
+          console.log("Errors in form data",f,l,e,p)
+        }
+    return(false)
+    });
+    $('li#scraps').click(function() {
+      console.log("list-item clicked")
+      $(this).click();
+
+    });
+    $('form').keyup(function() {
+      console.log("keyup entered")
+      var f = $( ".first" ).val();
+      var l = $( ".last" ).val();
+      var e = $( ".email" ).val();
+      var p= $( ".phone" ).val();
+      var p2 = p.replace(/[^\w\s]|_/g, "");
+      console.log(f,l,e,p);
+      writeNote(f,l,e,p2);
+    });
+  });
+</script>
+</head>
+<body>
+  <div id="wrapper">
+    <div id="left">
+      <div id="top-left">
+        <p id="name"></p>
+        <p id="phone"></p>
+        <p id="email"></p>
+      </div>
+      <div id="bottom-left">
+        <form id="input">
+          <span>First Name</span> <input class="first" type="text" name="first" placeholder="first name"/> <br>
+          <span>Last Name</span><input class="last" type="text" name="last" placeholder="last name"/><br>
+          <span>e-Mail Address</span><input class="email" type="text" name="email" placeholder="you@domain.com"/><br>
+          <span>Phone</span><input class="phone" type="text" name="phone" placeholder="999-999-9999"/><br>
+          <span>Notes:</span><br><textarea class="notes" type="textarea" name="notes" resize="none"></textarea>
+          <button>Add</button>
+        </form>
+      </div>
+    </div>
+    <div id="right">
+      <h3>Pocket full of Notes</h3>
+      <ul id="scraps">
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

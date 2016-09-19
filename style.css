@@ -1,0 +1,109 @@
+* {
+  margin: 0 auto;
+  font-family: "Comic Sans MS", sans-serif;
+  /*width: 960px;*/
+}
+textarea {
+  resize: none;
+}
+  #wrapper {
+    width: 960px;
+    background-color: darkgreen;
+    overflow: hidden;
+  }
+  #left {
+    display: inline-block;
+    width: 600px;
+    vertical-align: top;
+  }
+    #top-left {
+      /*display: inline-block;*/
+      /*width: 600px;*/
+      height: 250px;
+      padding-top: 70px;
+      background-image:url("images/scrap3.png");
+      background-size: 600px 244px;
+      background-repeat: no-repeat;
+    }
+      #name {
+        font-size: 18pt;
+        margin: 0px 0 0 45px;
+      }
+      #phone {
+        font-size: 14pt;
+        margin: 5px 0 0 52px;
+      }
+      #email {
+        font-size: 14pt;
+        margin: 5px 0 0 43px;
+      }
+    #bottom-left {
+      /*display: inline-block;*/
+      /*width: 600px;*/
+      height: 250px;
+    }
+  #input {
+    background-position: center;
+    width: 0 auto;
+    padding: 5px;
+    margin: 30px 0 0 5px;
+    border: 2px transparent black;
+  }
+    #input input {
+      display: inline;
+      margin-bottom: 5px;
+      width: 300px;
+    }
+    #input span {
+      display: inline;
+      margin-bottom: 5px;
+      padding-right: 5px;
+    }
+    #input .notes {
+      width: 300px;
+      height: 75px;
+      wrap: soft;
+    }
+    #input button {
+      display: inline;
+      width: 125px;
+      margin-left: 20px;
+      background-color: navy;
+      color: silver;
+      border-radius: 5px;
+      border-color: lightblue;
+    }
+    #right {
+      width: 320px;
+      height: 700px;
+      margin-left: 3px;
+      display: inline-block;
+      background-color: #darkgreen;
+      vertical-align: top;
+      text-align: center;
+      color:white;
+    }
+    #scraps {
+      list-style-type: none;
+      list-style-position: inside;
+      margin-left: -20px;
+    }
+    #scraps li {
+      width: 275px;
+      height: 97px;
+      padding-top:25px;
+      padding-left: 25px;
+      background-image:url("images/scrap3.png");
+      background-size: 300px 122px;
+      background-repeat: no-repeat;
+      text-align: left;
+    }
+    #scraps .name {
+      font-size: 9pt;
+      color: black;
+    }
+    #scraps p {
+      font-size: 7pt;
+      color: #222222;
+
+    }
