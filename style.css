@@ -17,14 +17,19 @@ textarea {
     vertical-align: top;
   }
     #top-left {
-      /*display: inline-block;*/
-      /*width: 600px;*/
       height: 250px;
       padding-top: 70px;
       background-image:url("images/scrap3.png");
       background-size: 600px 244px;
       background-repeat: no-repeat;
     }
+    /*#top-left .notes {
+      height: 250px;
+      padding-top: 70px;
+      background-image:url("images/scrap2.png");
+      background-size: 600px 244px;
+      background-repeat: no-repeat;
+    }*/
       #name {
         font-size: 18pt;
         margin: 0px 0 0 45px;
@@ -33,13 +38,44 @@ textarea {
         font-size: 14pt;
         margin: 5px 0 0 52px;
       }
+      #phone .notes {
+        display: none;
+        font-size: 14pt;
+        margin: 5px 0 0 52px;
+      }
       #email {
         font-size: 14pt;
         margin: 5px 0 0 43px;
       }
+      #email .notes {
+        display: none;
+        font-size: 14pt;
+        margin: 5px 0 0 43px;
+      }
+      /*#notes {
+        font-size: 14pt;
+        margin: 6px 0 0 47px;
+        display: none;
+      }*/
+      #notes .notes {
+        font-size: 14pt;
+        margin: 5px 0 0 48px;
+      }
+      .notes {
+        display: none;
+        width: 400px;
+        height: 100px;
+        font-size: 11pt;
+        margin: 6px 0 0 47px;
+      }
+      #notes div {
+        width: 400px;
+        height: 100px;
+        background-color: gray;
+      }
     #bottom-left {
-      /*display: inline-block;*/
-      /*width: 600px;*/
+      display: inline-block;
+      width: 600px;
       height: 250px;
     }
   #input {
@@ -59,7 +95,7 @@ textarea {
       margin-bottom: 5px;
       padding-right: 5px;
     }
-    #input .notes {
+    #input .note {
       width: 300px;
       height: 75px;
       wrap: soft;
@@ -82,8 +118,8 @@ textarea {
       vertical-align: top;
       text-align: center;
       color:white;
-      overflow-y: scroll;
-      overflow-x: none;
+      /*overflow-y: scroll;
+      overflow-x: none;*/
     }
     #scraps {
       list-style-type: none;

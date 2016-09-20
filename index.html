@@ -61,19 +61,20 @@
     $('form').submit(
     function() {
         //retrieve(first,last,email,phone);
-        var f = $( ".first" ).val();
-        var l = $( ".last" ).val();
-        var e = $( ".email" ).val();
-        var n = $( ".notes" ).val();
-        var p= $( ".phone" ).val();
-        var p2 = p.replace(/[^\w\s]|_/g, "");
-        if (validateData(f,l,e,p2)) {
+        var fn = $( "input.first" ).val();
+        var ln = $( "input.last" ).val();
+        var em = $( "input.email" ).val();
+        var n = $( "textarea.note" ).val();
+        var ph = $( "input.phone" ).val();
+        var p2 = ph.replace(/[^\w\s]|_/g, "");
+        if (validateData(fn,ln,em,ph)) {
           $("#input input").val("");
-          console.log("Writing to list",f,l,e,p)
-          writeListEntry(f,l,e,p2,n);
+          console.log("Writing to list",fn,ln,em,ph)
+          writeListEntry(fn,ln,em,p2,n);
+          $('textarea').val("");
         }
         else {
-          console.log("Errors in form data",f,l,e,p)
+          console.log("Errors in form data",fn,ln,em,ph)
         }
     return(false)
     });
@@ -90,7 +91,39 @@
       //console.log(f,l,e,p);
       writeNote(f,l,e,p2);
     });
-    $('#scraps').on('click', 'li', function(){var note = $(this).attr('notes'); alert(note);
+    // If small scrap clicked on, magnify reverse side
+    // of scrap of paper in top left, showing notes.
+    $('#scraps').on('click', 'li', function(){
+      var note = $(this).attr('notes');
+      var phone = $(this).attr('phone');
+      var file = $('div#top-left').attr('scrapback');
+      file="url('"+file+"')"
+      console.log(file);
+      $('div#top-left').css('background-image',file);
+      console.log('flip big image');
+      $('div#top-left').addClass('scrapback');
+      $('span.notes').html("<b>Notes:</b>");
+      $('div.notes').html(note);
+      $('span.notes').show();
+      $('div.notes').show();
+    });
+    // if focus is in the form and class "notes" is on #top-left
+    // then toggle notes off again and switch the image back...
+    $('form').on('focus', 'input', function(){
+      var state = $('div span #top-left').attr('display');
+      console.log(state);
+      if (state != 'none') {
+      var file = $('div#top-left').attr('orig');
+      file="url('"+file+"')"
+      console.log(file);
+      $('div#top-left').css('background-image',file);
+      console.log('flip big image back');
+      $('div#top-left').removeClass('scrapback');
+      $('span.notes').html("<b>Notes:</b>");
+      $('div.notes').html("");
+      $('span.notes').hide();
+      $('div.notes').hide();
+    }
     });
   });
 </script>
@@ -98,27 +131,29 @@
 <body>
   <div id="wrapper">
     <div id="left">
-      <div id="top-left">
-        <p id="name"></p>
+      <div id="top-left" scrapback="images/scrap2.png" orig="images/scrap3.png">
+        <p id="name"></p><span id="notes" class="notes"><b>Notes:</b></span>
         <p id="phone"></p>
+          <div id="notes" class="notes">
+          </div>
         <p id="email"></p>
       </div>
       <div id="bottom-left">
-        <form id="input">
-          <span>First Name</span> <input class="first" type="text" name="first" placeholder="first name"/> <br>
-          <span>Last Name</span><input class="last" type="text" name="last" placeholder="last name"/><br>
-          <span>e-Mail Address</span><input class="email" type="text" name="email" placeholder="you@domain.com"/><br>
-          <span>Phone</span><input class="phone" type="text" name="phone" placeholder="999-999-9999"/><br>
-          <span>Notes:</span><br><textarea class="notes" type="textarea" name="notes" resize="none"></textarea>
-          <button>Add</button>
-        </form>
+          <form id="input">
+            <span>First Name</span> <input class="first" type="text" name="first" placeholder="first name"/> <br>
+            <span>Last Name</span><input class="last" type="text" name="last" placeholder="last name"/><br>
+            <span>e-Mail Address</span><input class="email" type="text" name="email" placeholder="you@domain.com"/><br>
+            <span>Phone</span><input class="phone" type="text" name="phone" placeholder="999-999-9999"/><br>
+            <span>Notes:</span><br><textarea class="note" type="textarea" name="notes" resize="none"></textarea>
+            <button>Add</button>
+          </form>
       </div>
     </div>
-    <div id="right">
-      <h3>Pocket full of Notes</h3>
-      <ul id="scraps">
-      </ul>
-    </div>
+      <div id="right">
+        <h3>Bits of Paper</h3>
+        <ul id="scraps">
+        </ul>
+      </div>
   </div>
 </body>
 </html>
