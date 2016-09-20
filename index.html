@@ -23,17 +23,9 @@
     }
     return(d_phone);
   }
-  // function writeRow
-  function writeListEntry(first, last, email, phone, notes) {
-    var name= first+" "+last;
-    var p2 = phone.replace(/[^\w\s]|_/g, "");
-    var d_phone = val_phone(phone);
-    $( 'ul#scraps' ).append("<li notes="+notes+" phone="+p2+"><p class='name'>"+name+"</p><p>"+d_phone+"</p><p>"+email+"</p></li>");
-    writeNote("","","","");
-  };
-  function validateData(first,last,email,phone) {
-    return(true);
-  };
+  //
+  // writeNotes to top-left
+  //
   function writeNote(first,last,email,phone) {
     console.log("writeNote entered");
     var n = first+' '+last;
@@ -42,9 +34,30 @@
     $( 'p#phone' ).html("<i>"+d_phone+"</i>");
     $( 'p#email' ).html("<i>"+email+"</i>");
   };
-  // Use jQuery to read input and make dynamic content
+  //
+  // function writeRow
+  //
+  function writeListEntry(first, last, email, phone, notes) {
+    var name= first+" "+last;
+    var p2 = phone.replace(/[^\w\s]|_/g, "");
+    var d_phone = val_phone(phone);
+    //notes=notes.replace(/[\s]|_/g,'%20');
+    //console.log("Notes="+notes);
+    $( 'ul#scraps' ).append("<li notes='"+notes+"' phone="+p2+"><p class='name'>"+name+"</p><p>"+d_phone+"</p><p>"+email+"</p></li>");
+    writeNote("","","","");
+  };
+  function validateData(first,last,email,phone) {
+    return(true);
+  };
+  //
+  // Use jQuery to wait for docuemnt load, and then
+  // attach handlers to static content
+  //
   $(document).ready(function(){
     console.log("jQuery Loaded")
+    //
+    // Handler for form submission
+    //
     $('form').submit(
     function() {
         //retrieve(first,last,email,phone);
@@ -64,20 +77,20 @@
         }
     return(false)
     });
-    $('li#scraps').click(function() {
-      console.log("list-item clicked")
-      $(this).click();
-
-    });
+    //
+    // Handler for keystrokes in form fields
+    //
     $('form').keyup(function() {
-      console.log("keyup entered")
+      //console.log("keyup entered")
       var f = $( ".first" ).val();
       var l = $( ".last" ).val();
       var e = $( ".email" ).val();
       var p= $( ".phone" ).val();
       var p2 = p.replace(/[^\w\s]|_/g, "");
-      console.log(f,l,e,p);
+      //console.log(f,l,e,p);
       writeNote(f,l,e,p2);
+    });
+    $('#scraps').on('click', 'li', function(){var note = $(this).attr('notes'); alert(note);
     });
   });
 </script>
